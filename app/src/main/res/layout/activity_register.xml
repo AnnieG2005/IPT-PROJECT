@@ -36,7 +36,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="30dp"
-        app:cardCornerRadius="30dp"
+        app:cardCornerRadius="8dp"
         app:cardElevation="15dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -75,76 +75,152 @@
                 android:layout_marginBottom="24dp"/>
 
             <!-- Name Input (Height adjusted to 56dp for consistency) -->
-            <EditText
+
+
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="56dp"
-                android:id="@+id/signup_name"
-                android:background="@drawable/input_border_rounded"
-                android:layout_marginTop="12dp"
-                android:paddingStart="16dp"
-                android:paddingEnd="16dp"
+                android:layout_height="wrap_content"
                 android:hint="Full Name"
-                android:drawableStart="@drawable/baseline_person_24"
-                android:drawablePadding="10dp"
-                android:textColor="@android:color/black"
-                android:textSize="14sp"/>
+                android:layout_marginBottom="16dp"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                app:startIconDrawable="@drawable/baseline_person_24"
+                app:startIconTint="@color/maroon_primary"
+                app:boxStrokeColor="@color/black"
+                app:hintTextColor="@color/maroon_primary">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/signup_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+<!--            <EditText-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="56dp"-->
+<!--                android:id="@+id/signup_name"-->
+<!--                android:background="@drawable/input_border_rounded"-->
+<!--                android:layout_marginTop="12dp"-->
+<!--                android:paddingStart="16dp"-->
+<!--                android:paddingEnd="16dp"-->
+<!--                android:hint="Full Name"-->
+<!--                android:drawableStart="@drawable/baseline_person_24"-->
+<!--                android:drawablePadding="10dp"-->
+<!--                android:textColor="@android:color/black"-->
+<!--                android:textSize="14sp"/>-->
 
             <!-- Email Input (Height adjusted to 56dp for consistency) -->
-            <EditText
+
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="56dp"
-                android:id="@+id/signup_email"
-                android:background="@drawable/input_border_rounded"
-                android:layout_marginTop="16dp"
-                android:paddingStart="16dp"
-                android:paddingEnd="16dp"
+                android:layout_height="wrap_content"
                 android:hint="Email Address"
-                android:drawableStart="@drawable/baseline_email_24"
-                android:drawablePadding="10dp"
-                android:textColor="@android:color/black"
-                android:textSize="14sp"
-                android:inputType="textEmailAddress"/>
+                android:layout_marginBottom="16dp"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                app:startIconDrawable="@drawable/baseline_email_24"
+                app:startIconTint="@color/maroon_primary"
+                app:boxStrokeColor="@color/black"
+                app:hintTextColor="@color/maroon_primary">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/signup_email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textEmailAddress" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+<!--            <EditText-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="56dp"-->
+<!--                android:id="@+id/signup_email"-->
+<!--                android:background="@drawable/input_border_rounded"-->
+<!--                android:layout_marginTop="16dp"-->
+<!--                android:paddingStart="16dp"-->
+<!--                android:paddingEnd="16dp"-->
+<!--                android:hint="Email Address"-->
+<!--                android:drawableStart="@drawable/baseline_email_24"-->
+<!--                android:drawablePadding="10dp"-->
+<!--                android:textColor="@android:color/black"-->
+<!--                android:textSize="14sp"-->
+<!--                android:inputType="textEmailAddress"/>-->
 
             <!-- Phone Input (Height adjusted to 56dp for consistency) -->
-            <EditText
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="56dp"
-                android:id="@+id/signup_phone"
-                android:background="@drawable/input_border_rounded"
-                android:layout_marginTop="16dp"
-                android:paddingStart="16dp"
-                android:paddingEnd="16dp"
-                android:hint="Phone No"
-                android:drawableStart="@drawable/baseline_phone_24"
-                android:drawablePadding="10dp"
-                android:textColor="@android:color/black"
-                android:textSize="14sp"
-                android:inputType="phone"/>
+                android:layout_height="wrap_content"
+                android:hint="Phone No."
+                android:layout_marginBottom="16dp"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                app:startIconDrawable="@drawable/baseline_phone_24"
+                app:startIconTint="@color/maroon_primary"
+                app:boxStrokeColor="@color/black"
+                app:hintTextColor="@color/maroon_primary">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/signup_phone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="phone" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+<!--            <EditText-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="56dp"-->
+<!--                android:id="@+id/signup_phone"-->
+<!--                android:background="@drawable/input_border_rounded"-->
+<!--                android:layout_marginTop="16dp"-->
+<!--                android:paddingStart="16dp"-->
+<!--                android:paddingEnd="16dp"-->
+<!--                android:hint="Phone No"-->
+<!--                android:drawableStart="@drawable/baseline_phone_24"-->
+<!--                android:drawablePadding="10dp"-->
+<!--                android:textColor="@android:color/black"-->
+<!--                android:textSize="14sp"-->
+<!--                android:inputType="phone"/>-->
 
             <!-- Password Input (Height adjusted to 56dp for consistency) -->
-            <EditText
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="56dp"
-                android:id="@+id/signup_password"
-                android:background="@drawable/input_border_rounded"
-                android:layout_marginTop="16dp"
-                android:paddingStart="16dp"
-                android:paddingEnd="16dp"
+                android:layout_height="wrap_content"
                 android:hint="Password"
-                android:inputType="textPassword"
-                android:drawableStart="@drawable/baseline_lock_24"
-                android:drawablePadding="10dp"
-                android:textColor="@android:color/black"
-                android:textSize="14sp"/>
+                android:layout_marginBottom="16dp"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                app:startIconDrawable="@drawable/baseline_lock_24"
+                app:startIconTint="@color/maroon_primary"
+                app:boxStrokeColor="@color/black"
+                app:hintTextColor="@color/maroon_primary">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/signup_password"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPassword" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+<!--            <EditText-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="56dp"-->
+<!--                android:id="@+id/signup_password"-->
+<!--                android:background="@drawable/input_border_rounded"-->
+<!--                android:layout_marginTop="16dp"-->
+<!--                android:paddingStart="16dp"-->
+<!--                android:paddingEnd="16dp"-->
+<!--                android:hint="Password"-->
+<!--                android:inputType="textPassword"-->
+<!--                android:drawableStart="@drawable/baseline_lock_24"-->
+<!--                android:drawablePadding="10dp"-->
+<!--                android:textColor="@android:color/black"-->
+<!--                android:textSize="14sp"/>-->
 
             <!-- Sign Up Button (Updated to gradient and tint fixes) -->
             <Button
                 android:id="@+id/signup_button"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="wrap_content"
                 android:text="SIGN UP"
                 android:textSize="18sp"
-                android:layout_marginTop="32dp"
+                android:layout_marginTop="4dp"
                 android:background="@drawable/btn_gradient_login"
                 android:textColor="@android:color/white"
                 android:textStyle="bold"
@@ -152,13 +228,20 @@
                 android:stateListAnimator="@null"
                 app:backgroundTint="@null"/>
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="24dp"
+                android:background="#D3D3D3" />
+
             <!-- Login Redirect Link (Styled to match Login screen) -->
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:layout_gravity="center"
-                android:layout_marginTop="16dp">
+                >
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -181,5 +264,27 @@
 
         </LinearLayout>
     </androidx.cardview.widget.CardView>
+
+    <RelativeLayout
+        android:id="@+id/loadingOverlay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#80000000"
+        android:clickable="true"
+        android:focusable="true"
+        android:visibility="gone"
+        android:elevation="10dp"
+        android:translationZ="50dp">
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/lottieAnimation"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_centerInParent="true"
+            app:lottie_rawRes="@raw/basic_loader"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true" />
+
+    </RelativeLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

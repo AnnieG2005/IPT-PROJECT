@@ -6,329 +6,482 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/gradient_background"
-    android:fillViewport="true">
+    android:fillViewport="true"
+    android:scrollbars="none">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:paddingBottom="32dp"
+        android:paddingBottom="40dp"
         tools:context=".auth.Login">
 
-        <!-- Header Section -->
-        <RelativeLayout
+
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="24dp"
-            android:paddingBottom="16dp"
-            android:background="@drawable/gradient_header">
+            android:orientation="vertical"
+            android:background="@drawable/gradient_header"
+            android:gravity="center_horizontal"
+            android:paddingTop="32dp"
+            android:paddingBottom="28dp"
+            android:paddingStart="24dp"
+            android:paddingEnd="24dp">
+
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:text="Help Center"
+                android:text="HELP CENTER"
                 android:textColor="#FFFFFF"
-                android:textSize="32sp"
+                android:textSize="11sp"
                 android:textStyle="bold"
-                android:letterSpacing="0.05"
-                android:elevation="4dp" />
+                android:letterSpacing="0.12"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:background="@drawable/pill_outline_white"
+                android:layout_marginBottom="12dp" />
+
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="52dp"
-                android:text="Frequently Asked Questions"
-                android:textColor="#E0E0E0"
-                android:textSize="14sp"
-                android:alpha="0.9" />
-        </RelativeLayout>
+                android:text="@string/fragment_help_title"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:layout_marginBottom="8dp" />
 
-        <!-- FAQ Item 1 -->
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/fragment_help_subtitle"
+                android:textColor="#FFFFFF"
+                android:textSize="13sp"
+                android:alpha="0.75"
+                android:gravity="center" />
+
+        </LinearLayout>
+
+
+
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginEnd="24dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="20dp"
             app:cardBackgroundColor="#FFFFFF"
-            app:cardCornerRadius="16dp"
-            app:cardElevation="8dp"
-            android:clickable="true"
-            android:focusable="true"
-            android:foreground="?android:attr/selectableItemBackground">
+            app:cardCornerRadius="14dp"
+            app:cardElevation="2dp"
+            app:cardUseCompatPadding="false">
 
-            <LinearLayout android:background="@drawable/lavendar_border"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?android:attr/selectableItemBackground">
 
-                android:padding="20dp">
 
                 <LinearLayout
+                    android:id="@+id/que1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:gravity="center_vertical">
+                    android:gravity="center_vertical"
+                    android:padding="16dp">
 
-                    <View
-                        android:layout_width="4dp"
-                        android:layout_height="24dp"
-                        android:background="@drawable/accent_gradient"
+
+                    <TextView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:text="1"
+                        android:textColor="#6B2940"
+                        android:textSize="12sp"
+                        android:textStyle="bold"
+                        android:gravity="center"
+                        android:background="@drawable/num_badge_bg"
                         android:layout_marginEnd="12dp" />
 
                     <TextView
-                        android:id="@+id/que1"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="How do I report a lost item?"
-                        android:textColor="#1A237E"
-                        android:textSize="16sp"
+                        android:text="@string/fragment_help_tab_1_title"
+                        android:textColor="#212121"
+                        android:textSize="14sp"
                         android:textStyle="bold"
                         android:lineSpacingExtra="2dp" />
 
                     <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
+                        android:id="@+id/arrow1"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_marginStart="8dp"
                         android:src="@drawable/baseline_arrow"
-                        android:tint="#5C6BC0" />
+                        app:tint="#9E9E9E" />
+
                 </LinearLayout>
+
+
+                <View
+                    android:id="@+id/divider1"
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="#EEEEEE"
+                    android:visibility="gone" />
+
 
                 <TextView
                     android:id="@+id/ans1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
-                    android:layout_marginStart="16dp"
-                    android:text="To report a lost item, simply go to lost section, click on '+' button and add all the required information."
-                    android:textColor="#424242"
-                    android:textSize="14sp"
+                    android:paddingStart="58dp"
+                    android:paddingEnd="16dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="16dp"
+                    android:text="@string/fragment_help_tab_1_answer"
+                    android:textColor="#616161"
+                    android:textSize="13sp"
                     android:lineSpacingExtra="4dp"
                     android:visibility="gone" />
+
             </LinearLayout>
+
         </androidx.cardview.widget.CardView>
 
-        <!-- FAQ Item 2 -->
+
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginEnd="24dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="10dp"
             app:cardBackgroundColor="#FFFFFF"
-            app:cardCornerRadius="16dp"
-            app:cardElevation="8dp"
-            android:clickable="true"
-            android:focusable="true"
-            android:foreground="?android:attr/selectableItemBackground">
+            app:cardCornerRadius="14dp"
+            app:cardElevation="2dp"
+            app:cardUseCompatPadding="false">
 
-            <LinearLayout android:background="@drawable/lavendar_border"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="20dp">
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?android:attr/selectableItemBackground">
 
                 <LinearLayout
+                    android:id="@+id/que2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:gravity="center_vertical">
+                    android:gravity="center_vertical"
+                    android:padding="16dp">
 
-                    <View
-                        android:layout_width="4dp"
-                        android:layout_height="24dp"
-                        android:background="@drawable/accent_gradient"
+                    <TextView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:text="2"
+                        android:textColor="#6B2940"
+                        android:textSize="12sp"
+                        android:textStyle="bold"
+                        android:gravity="center"
+                        android:background="@drawable/num_badge_bg"
                         android:layout_marginEnd="12dp" />
 
                     <TextView
-                        android:id="@+id/que2"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="How can I check if someone found my lost item?"
-                        android:textColor="#1A237E"
-                        android:textSize="16sp"
+                        android:text="@string/fragment_help_tab_2_title"
+                        android:textColor="#212121"
+                        android:textSize="14sp"
                         android:textStyle="bold"
                         android:lineSpacingExtra="2dp" />
 
                     <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
+                        android:id="@+id/arrow2"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_marginStart="8dp"
                         android:src="@drawable/baseline_arrow"
-                        android:tint="#5C6BC0" />
+                        app:tint="#9E9E9E" />
+
                 </LinearLayout>
+
+                <View
+                    android:id="@+id/divider2"
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="#EEEEEE"
+                    android:visibility="gone" />
 
                 <TextView
                     android:id="@+id/ans2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
-                    android:layout_marginStart="16dp"
-                    android:text="You can check for your item in found section"
-                    android:textColor="#424242"
-                    android:textSize="14sp"
+                    android:paddingStart="58dp"
+                    android:paddingEnd="16dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="16dp"
+                    android:text="@string/fragment_help_tab_2_answer"
+                    android:textColor="#616161"
+                    android:textSize="13sp"
                     android:lineSpacingExtra="4dp"
                     android:visibility="gone" />
+
             </LinearLayout>
+
         </androidx.cardview.widget.CardView>
 
-        <!-- FAQ Item 3 -->
+
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginEnd="24dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="10dp"
             app:cardBackgroundColor="#FFFFFF"
-            app:cardCornerRadius="16dp"
-            app:cardElevation="8dp"
-            android:clickable="true"
-            android:focusable="true"
-            android:foreground="?android:attr/selectableItemBackground">
+            app:cardCornerRadius="14dp"
+            app:cardElevation="2dp"
+            app:cardUseCompatPadding="false">
 
-            <LinearLayout android:background="@drawable/lavendar_border"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="20dp">
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?android:attr/selectableItemBackground">
 
                 <LinearLayout
+                    android:id="@+id/que3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:gravity="center_vertical">
+                    android:gravity="center_vertical"
+                    android:padding="16dp">
 
-                    <View
-                        android:layout_width="4dp"
-                        android:layout_height="24dp"
-                        android:background="@drawable/accent_gradient"
+                    <TextView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:text="3"
+                        android:textColor="#6B2940"
+                        android:textSize="12sp"
+                        android:textStyle="bold"
+                        android:gravity="center"
+                        android:background="@drawable/num_badge_bg"
                         android:layout_marginEnd="12dp" />
 
                     <TextView
-                        android:id="@+id/que3"
+
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="What should I do if I found a lost item?"
-                        android:textColor="#1A237E"
-                        android:textSize="16sp"
+                        android:text="@string/fragment_help_tab_3_title"
+                        android:textColor="#212121"
+                        android:textSize="14sp"
                         android:textStyle="bold"
                         android:lineSpacingExtra="2dp" />
 
                     <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
+                        android:id="@+id/arrow3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="20dp"
+                        android:layout_marginStart="8dp"
                         android:src="@drawable/baseline_arrow"
-                        android:tint="#5C6BC0" />
+                        app:tint="#9E9E9E" />
+
                 </LinearLayout>
+
+                <View
+                    android:id="@+id/divider3"
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="#EEEEEE"
+                    android:visibility="gone" />
 
                 <TextView
                     android:id="@+id/ans3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
-                    android:layout_marginStart="16dp"
-                    android:text="If you found an item go to found section, click on '+' button and add all the required information about you and the found item"
-                    android:textColor="#424242"
-                    android:textSize="14sp"
+                    android:paddingStart="58dp"
+                    android:paddingEnd="16dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="16dp"
+                    android:text="@string/fragment_help_tab_3_answer"
+                    android:textColor="#616161"
+                    android:textSize="13sp"
                     android:lineSpacingExtra="4dp"
                     android:visibility="gone" />
+
             </LinearLayout>
+
         </androidx.cardview.widget.CardView>
 
-        <!-- FAQ Item 4 -->
+
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginEnd="24dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="10dp"
             app:cardBackgroundColor="#FFFFFF"
-            app:cardCornerRadius="16dp"
-            app:cardElevation="8dp"
-            android:clickable="true"
-            android:focusable="true"
-            android:foreground="?android:attr/selectableItemBackground">
+            app:cardCornerRadius="14dp"
+            app:cardElevation="2dp"
+            app:cardUseCompatPadding="false">
 
-            <LinearLayout android:background="@drawable/lavendar_border"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="20dp">
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?android:attr/selectableItemBackground">
 
                 <LinearLayout
+                    android:id="@+id/que4"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:gravity="center_vertical">
+                    android:gravity="center_vertical"
+                    android:padding="16dp">
 
-                    <View
-                        android:layout_width="4dp"
-                        android:layout_height="24dp"
-                        android:background="@drawable/accent_gradient"
+                    <TextView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:text="4"
+                        android:textColor="#6B2940"
+                        android:textSize="12sp"
+                        android:textStyle="bold"
+                        android:gravity="center"
+                        android:background="@drawable/num_badge_bg"
                         android:layout_marginEnd="12dp" />
 
                     <TextView
-                        android:id="@+id/que4"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="How long should I wait before my item appears?"
-                        android:textColor="#1A237E"
-                        android:textSize="16sp"
+                        android:text="@string/fragment_help_tab_4_title"
+                        android:textColor="#212121"
+                        android:textSize="14sp"
                         android:textStyle="bold"
                         android:lineSpacingExtra="2dp" />
 
                     <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
+                        android:id="@+id/arrow4"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_marginStart="8dp"
                         android:src="@drawable/baseline_arrow"
-                        android:tint="#5C6BC0" />
+                        app:tint="#9E9E9E" />
+
                 </LinearLayout>
+
+                <View
+                    android:id="@+id/divider4"
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="#EEEEEE"
+                    android:visibility="gone" />
 
                 <TextView
                     android:id="@+id/ans4"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
-                    android:layout_marginStart="16dp"
-                    android:text="Your item will appear immediately after posting. Make sure to check both lost and found sections regularly for updates."
-                    android:textColor="#424242"
-                    android:textSize="14sp"
+                    android:paddingStart="58dp"
+                    android:paddingEnd="16dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="16dp"
+                    android:text="@string/fragment_help_tab_4_answer"
+                    android:textColor="#616161"
+                    android:textSize="13sp"
                     android:lineSpacingExtra="4dp"
                     android:visibility="gone" />
+
             </LinearLayout>
+
         </androidx.cardview.widget.CardView>
 
-        <!-- Contact Support Section -->
-        <LinearLayout
+
+
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginEnd="24dp"
-            android:layout_marginTop="32dp"
-            android:orientation="vertical"
-            android:gravity="center"
-            android:padding="20dp">
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="12dp"
+            app:cardBackgroundColor="#FFFFFF"
+            app:cardCornerRadius="14dp"
+            app:cardElevation="2dp"
+            app:cardUseCompatPadding="false">
 
-            <TextView
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Still need help?"
-                android:textColor="#5C6BC0"
-                android:textSize="16sp"
-                android:textStyle="bold" />
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:padding="16dp"
+                >
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="Contact our support team"
-                android:textColor="#757575"
-                android:textSize="14sp" />
-        </LinearLayout>
+                <FrameLayout
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:background="@drawable/num_badge_bg"
+                    android:layout_marginEnd="14dp">
+
+                    <ImageView
+                        android:layout_width="22dp"
+                        android:layout_height="22dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/baseline_add_24"
+                        app:tint="#6B2940" />
+
+                </FrameLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Still need help?"
+                        android:textColor="#212121"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="3dp"
+                        android:text="Contact our support team"
+                        android:textColor="#9E9E9E"
+                        android:textSize="12sp" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
 
     </LinearLayout>
 </ScrollView>

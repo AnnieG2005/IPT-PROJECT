@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+
 
     <group
         android:id="@+id/important_nav"
@@ -25,17 +29,20 @@
             android:icon="@drawable/myitems_drawer"/>
     </group>
 
+
+
+
     <group
         android:id="@+id/secondary_nav"
         android:checkableBehavior="single">
             <item
                 android:id="@+id/nav_about_us"
-                android:title="About Us"
+                android:title=" About Us"
                 android:icon="@drawable/aboutus_icon"/>
 
             <item
                 android:id="@+id/nav_privacy"
-                android:title="Privacy"
+                android:title=" Privacy"
                 android:icon="@drawable/privacy_icon"/>
 
 <!--            <item-->
@@ -44,15 +51,15 @@
 <!--                android:icon="@drawable/contactus_icon"/>-->
     </group>
 
-    <item
-        android:title="Logout">
-        <menu>
-            <item
-                android:id="@+id/logout_drawer"
-                android:title="Logout"
-                android:icon="@drawable/logout_icon"/>
-        </menu>
 
-    </item>
+    <group
+        android:id="@+id/nav_logout"
+        android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/logout_drawer"
+            android:title="Logout"
+            android:icon="@drawable/logout_icon"/>
+    </group>
 
 </menu>

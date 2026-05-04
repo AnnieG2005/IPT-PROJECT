@@ -18,34 +18,45 @@ import com.shruti.lofo.data.model.Item;
 import java.util.ArrayList;
 
 public class RecyclerRecentLoFoAdapter extends RecyclerView.Adapter<RecyclerRecentLoFoAdapter.ViewHolder> {
+
     private Context context;
     private ArrayList<Item> arr_recent_lofo;
     private OnItemClickListener onItemClickListener;
+
+
 
     public RecyclerRecentLoFoAdapter(Context context, ArrayList<Item> arr_recent_lofo) {
         this.arr_recent_lofo = arr_recent_lofo;
         this.context = context;
     }
 
-    // Define an interface for item click listener
+
+
+    /// | interface for item click listener         |
     public interface OnItemClickListener {
         void onItemClick(Item item);
     }
 
-    // Set the click listener for this adapter
+
+
+    /// | Set the click listener for this adapter   |
     public void setOnItemClickListener(OnItemClickListener listener) {
         this.onItemClickListener = listener;
     }
 
+
+
+    /// | OVERRIDDEN METHODS                       |
+    /// | INFLATE THE LAYOUT FOR EACH ITEM         |
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.recent_lofo, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_item_lofo, parent, false);
         return new ViewHolder(v);
     }
 
 
-
+    /// | BIND THE DATA TO THE VIEWS               |
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Item recentItem = arr_recent_lofo.get(position);
@@ -57,24 +68,24 @@ public class RecyclerRecentLoFoAdapter extends RecyclerView.Adapter<RecyclerRece
 
         holder.description.setText(recentItem.getDescription());
         holder.date.setText(recentItem.getDate());
+        holder.itemName.setText(recentItem.getItem_name());
+        holder.ownerName.setText(recentItem.getFull_name());
 
-        // Temporary
-        holder.owner_label.setText(recentItem.getItem_name());
+
 
         if (recentItem.getType().equalsIgnoreCase("Lost")) {
-            holder.tag.setTextColor(ContextCompat.getColor(context, android.R.color.holo_red_dark));
+
+            holder.tag.setBackgroundColor(ContextCompat.getColor(context, R.color.orange_tag));
             holder.tag.setText("Lost");
-            holder.owner_label.setText("Item");
-            holder.ownerName.setText(recentItem.getItem_name());
+
 
         } else {
-            holder.tag.setTextColor(ContextCompat.getColor(context, android.R.color.holo_green_light));
+            holder.tag.setBackgroundColor(ContextCompat.getColor(context, R.color.blue_tag));
             holder.tag.setText("Found");
-            holder.owner_label.setText("Item");
-            holder.ownerName.setText(recentItem.getItem_name());
+
         }
 
-        // Set an item click listener
+        /// | SET ON CLICK LISTENER FOR EACH ITEM           |
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -85,23 +96,29 @@ public class RecyclerRecentLoFoAdapter extends RecyclerView.Adapter<RecyclerRece
         });
     }
 
+
+
     @Override
     public int getItemCount() {
         return arr_recent_lofo.size();
     }
 
+
+    /// | VIEW HOLDER CLASS                         |
     public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView ownerName, description, tag,date,owner_label;
+        TextView itemName, description, tag,date, ownerName;
         ImageView imageURI;
 
         public ViewHolder(View itemView) {
             super(itemView);
+            itemName = itemView.findViewById(R.id.itemName);
             ownerName = itemView.findViewById(R.id.ownerName);
             date = itemView.findViewById(R.id.date);
             description = itemView.findViewById(R.id.description);
             imageURI = itemView.findViewById(R.id.img_lofo_recent);
+
             tag = itemView.findViewById(R.id.tag);
-            owner_label = itemView.findViewById(R.id.owner_label);
+
         }
     }
 }

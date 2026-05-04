@@ -2,27 +2,29 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="176dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:padding="16dp"
     android:background="@drawable/gradient_header"
     android:orientation="vertical"
     android:gravity="bottom">
 
 
-<FrameLayout
-android:layout_width="60dp"
-android:layout_height="60dp"
-android:background="@drawable/circle_white"
-android:padding="10dp"
-android:layout_marginBottom="8dp">
+    <FrameLayout
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginBottom="8dp" >
 
-<ImageView
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:src="@mipmap/ic_launcher"
-    android:contentDescription="Lost &amp; Found Logo" />
-</FrameLayout>
+        <com.mikhaellopez.circularimageview.CircularImageView
+            android:id="@+id/profileImage"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/avtar"
+            app:civ_border_color="@android:color/white"
+            app:civ_border_width="4dp" />
 
-<TextView
+    </FrameLayout>
+
+    <TextView
 android:layout_width="wrap_content"
 android:layout_height="wrap_content"
 android:fontFamily="sans-serif-black"

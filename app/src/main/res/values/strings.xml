@@ -18,4 +18,35 @@
     <string name="CloseDrawer">Close Drawer</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
+    <!--    Dashboard String -->
+    <string name="dashboard_welcome_message">Welcome back to Lost &amp; Found</string>
+
+    <!--  Fragment Help  -->
+    <string name="fragment_help_title">Frequently Asked Questions</string>
+    <string name="fragment_help_subtitle">Find answers to common questions below</string>
+
+    <string name="fragment_help_tab_1_title">How do I report a lost item?</string>
+    <string name="fragment_help_tab_1_answer">To report a lost item, simply go to lost section, click on \'+\' button and add all the required information.</string>
+
+    <string name="fragment_help_tab_2_title">How can I check if someone found my lost item?</string>
+    <string name="fragment_help_tab_2_answer">You can check for your item in found section</string>
+
+    <string name="fragment_help_tab_3_title">What should I do if I found a lost item?</string>
+    <string name="fragment_help_tab_3_answer">If you found an item go to found section, click on \'+\' button and add all the required information about you and the found item</string>
+
+    <string name="fragment_help_tab_4_title">How long should I wait before my item appears?</string>
+    <string name="fragment_help_tab_4_answer">Your item will appear immediately after posting. Make sure to check both lost and found sections regularly for updates.</string>
+
+
+
+    <!--  Fragment About Us  -->
+    <string name="fragment_about_us_title">About LoFo</string>
+    <string name="fragment_about_us_mission">We are a group of Holy Crossian college students behind this lost and found app. Our goal is to simplify the process of finding and returning lost items within our school community, promoting a sense of responsibility and unity.</string>
+    <string name="fragment_about_us_description">Our team is made up of dedicated individuals who are excited to enhance your lost and found experience. We\'re here to make your life easier and encourage you to get involved in reuniting with your belongings.\n\nThank you for being part of our journey!</string>
+    <string name="fragment_about_us_team">Holy Crossian College Students</string>
+
+    <!--  Fragment Privacy Policy   -->
+    <string name="fragment_privacy_policy_title">Privacy Policy</string>
+    <string name="fragment_privacy_policy_subtitle">Your trust is important to us.</string>
+    <string name="fragment_privacy_policy_body">We collect user data and device information to provide lost and found services, improve the app, and communicate with users. Your data is safeguarded for security, and we do not share it unless you consent or when legally required. You have the right to access, correct, or delete your information and manage communication preferences. We may update this policy and will post changes here. For questions or requests, please contact us at [Your Contact Information]. By using the app, you agree to these terms.</string>
 </resources>
