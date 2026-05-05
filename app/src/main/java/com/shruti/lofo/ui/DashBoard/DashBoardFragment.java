@@ -8,36 +8,59 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.paging.PagingSource;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.denzcoskun.imageslider.constants.ScaleTypes;
 import com.denzcoskun.imageslider.models.SlideModel;
 import com.shruti.lofo.R;
 import com.shruti.lofo.data.model.Item;
 import com.shruti.lofo.databinding.FragmentDashboardBinding;
-import com.shruti.lofo.ui.Found.FoundDetails;
-import com.shruti.lofo.ui.Lost.LostDetails;
+import com.shruti.lofo.ui.ItemDetails.ItemDetails;
+import com.shruti.lofo.utils.SessionManager;
 
 import java.util.ArrayList;
 
 public class DashBoardFragment extends Fragment {
+
+
     private FragmentDashboardBinding binding;
     private DashBoardViewModel dashBoardViewModel;
     private RecyclerRecentLoFoAdapter adapter;
     private ArrayList<Item> arr_recent_lofo;
 
+
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        binding = FragmentDashboardBinding.inflate(inflater, container, false);
-        View root = binding.getRoot();
 
+        binding = FragmentDashboardBinding.inflate(inflater, container, false);
+        return binding.getRoot();
+    }
+
+
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        /// |   MODEL INITIALIZATION     |
         dashBoardViewModel = new ViewModelProvider(this).get(DashBoardViewModel.class);
 
+
+        /// |   FUNCTION CALL         |
         setupImageSlider();
         setupRecyclerView();
         setupObservers();
+
+        binding.swipeRefreshLayout.setOnRefreshListener(() -> {
+            dashBoardViewModel.fetchFeed(true);
+
+        });
 
         getParentFragmentManager().setFragmentResultListener("refresh_feed", getViewLifecycleOwner(), (requestKey, result) -> {
             dashBoardViewModel.fetchFeed(true);
@@ -47,10 +70,54 @@ public class DashBoardFragment extends Fragment {
 
         setupItemClickListener();
         fetchUserName();
-
-        return root;
+        /// _____________
     }
 
+
+
+    /// +===========================+
+    /// |       FUNCTIONS           |
+    /// +===========================+
+
+
+    private void setupObservers() {
+
+        dashBoardViewModel.getIsLoading().observe(getViewLifecycleOwner(), isLoading -> {
+            if (isLoading) {
+                binding.lottieAnimation.setVisibility(View.VISIBLE);
+            } else {
+                binding.lottieAnimation.setVisibility(View.GONE);
+            }
+        });
+
+
+        dashBoardViewModel.getRecentItem().observe(getViewLifecycleOwner(), items -> {
+            if (items != null) {
+                arr_recent_lofo.clear();
+                arr_recent_lofo.addAll(items);
+                adapter.notifyDataSetChanged();
+
+                if (binding.swipeRefreshLayout.isRefreshing()) {
+                    binding.swipeRefreshLayout.setRefreshing(false);
+                }
+            }
+        });
+
+
+        dashBoardViewModel.getError().observe(getViewLifecycleOwner(), errorMessage -> {
+            if (errorMessage != null) {
+                 if (binding.swipeRefreshLayout.isRefreshing()) {
+                    binding.swipeRefreshLayout.setRefreshing(false);
+                }
+
+                 Toast.makeText(getContext(), errorMessage, Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+
+
+    /// | IMAGE SLIDER         |
     private void setupImageSlider() {
         ArrayList<SlideModel> slideModels = new ArrayList<>();
         slideModels.add(new SlideModel(R.drawable.dashboard_img1, ScaleTypes.FIT));
@@ -59,6 +126,9 @@ public class DashBoardFragment extends Fragment {
         binding.imageSlider.setImageList(slideModels, ScaleTypes.FIT);
     }
 
+
+
+    /// | RECYCLER VIEW        |
     private void setupRecyclerView() {
         arr_recent_lofo = new ArrayList<>();
         adapter = new RecyclerRecentLoFoAdapter(requireContext(), arr_recent_lofo);
@@ -69,38 +139,26 @@ public class DashBoardFragment extends Fragment {
         binding.recentLostFoundList.setAdapter(adapter);
     }
 
-    private void setupObservers() {
-        dashBoardViewModel.getRecentItem().observe(getViewLifecycleOwner(), items -> {
-            arr_recent_lofo.clear();
-            arr_recent_lofo.addAll(items);
-            adapter.notifyDataSetChanged();
-        });
 
-        // Listen for errors
-        dashBoardViewModel.getError().observe(getViewLifecycleOwner(), errorMessage -> {
-            Toast.makeText(getContext(), errorMessage, Toast.LENGTH_SHORT).show();
-        });
-    }
 
+    /// | ITEM CLICK LISTENER   |
     private void setupItemClickListener() {
         adapter.setOnItemClickListener(item -> {
             Intent intent;
-            int itemId = item.getItem_id();
-
-            if (item.getType().equalsIgnoreCase("Lost")) {
-                intent = new Intent(requireContext(), LostDetails.class);
-            } else {
-                intent = new Intent(requireContext(), FoundDetails.class);
-            }
-
-            intent.putExtra("itemId", itemId);
+            intent = new Intent(requireContext(), ItemDetails.class);
+            intent.putExtra("itemId", item.getItem_id());
             startActivity(intent);
         });
     }
 
+
+    /// | FETCH USER NAME       |
     private void fetchUserName() {
-        binding.userName.setText("Campus User");
+        SessionManager sessionManager = new SessionManager(requireContext());
+        binding.userName.setText(sessionManager.getName());
     }
+
+
 
     @Override
     public void onDestroyView() {

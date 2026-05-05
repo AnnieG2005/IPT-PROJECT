@@ -4,62 +4,73 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
-import com.shruti.lofo.R;
+import com.shruti.lofo.databinding.FragmentHelpBinding;
 
 public class HelpFragment extends Fragment {
+    private FragmentHelpBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
+        binding = FragmentHelpBinding.inflate( getLayoutInflater());
+        View root = binding.getRoot();
 
-        View root = inflater.inflate(R.layout.fragment_help, container, false);
-
-        TextView que1 = root.findViewById(R.id.que1);
-        TextView ans1 = root.findViewById(R.id.ans1);
-        TextView que2 = root.findViewById(R.id.que2);
-        TextView ans2 = root.findViewById(R.id.ans2);
-        TextView que3 = root.findViewById(R.id.que3);
-        TextView ans3 = root.findViewById(R.id.ans3);
-        TextView que4 = root.findViewById(R.id.que4);
-        TextView ans4 = root.findViewById(R.id.ans4);
-
-        // Set click listeners for que1 and que2
-        que1.setOnClickListener(new View.OnClickListener() {
+        binding.que1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                toggleVisibility(ans1);
+                toggleFaq(binding.ans1, binding.divider1, binding.arrow1);
             }
         });
 
-        que2.setOnClickListener(new View.OnClickListener() {
+        binding.que2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                toggleVisibility(ans2);
+                toggleFaq(binding.ans2, binding.divider2, binding.arrow2);
             }
         });
 
-        que3.setOnClickListener(new View.OnClickListener() {
+        binding.que3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                toggleVisibility(ans3);
+                toggleFaq(binding.ans3, binding.divider3, binding.arrow3);
             }
         });
 
-        que4.setOnClickListener(new View.OnClickListener() {
+
+        binding.que4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                toggleVisibility(ans4);
+                toggleFaq(binding.ans4, binding.divider4, binding.arrow4);
             }
         });
+
 
         return root;
     }
 
+
     private void toggleVisibility(TextView textView) {
         int currentVisibility = textView.getVisibility();
         textView.setVisibility(currentVisibility == View.VISIBLE ? View.GONE : View.VISIBLE);
+    }
+
+    private void toggleFaq(View answerView, View divider, ImageView arrow) {
+        boolean isExpanded = answerView.getVisibility() == View.VISIBLE;
+        answerView.setVisibility(isExpanded ? View.GONE : View.VISIBLE);
+        divider.setVisibility(isExpanded ? View.GONE : View.VISIBLE);
+        arrow.animate()
+                .rotation(isExpanded ? 0f : -90f)
+                .setDuration(200)
+                .start();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
     }
 }

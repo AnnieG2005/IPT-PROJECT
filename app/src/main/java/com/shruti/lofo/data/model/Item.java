@@ -14,6 +14,10 @@ public class Item {
     private String image_url;
     private String status;
     private String created_at;
+    private String email;
+    private String full_name;
+
+
 
     public Item () {}
 
@@ -70,6 +74,16 @@ public class Item {
         return created_at;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+
+
     // SETTER SECTION __________________________
 
     public void setItem_id(int item_id) {
@@ -122,5 +136,13 @@ public class Item {
 
     public void setCreated_at(String created_at) {
         this.created_at = created_at;
+    }
+
+    public String getFull_name() {
+        return full_name;
+    }
+
+    public void setFull_name(String full_name) {
+        this.full_name = full_name;
     }
 }

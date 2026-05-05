@@ -17,14 +17,16 @@
         android:id="@+id/lost_drawer"
         android:name="com.shruti.lofo.ui.Lost.LostFragment"
         android:label="Lost"
-        tools:layout="@layout/fragment_lost" />
+        tools:layout="@layout/fragment_item_listing" />
 
     <!-- Matches menu ID: found_drawer -->
     <fragment
         android:id="@+id/found_drawer"
         android:name="com.shruti.lofo.ui.Found.FoundFragment"
         android:label="Found"
-        tools:layout="@layout/fragment_found" />
+        tools:layout="@layout/fragment_item_listing" />
+
+
 
     <!-- Default help fragment ID (if used by Bottom Nav) -->
     <fragment
@@ -36,7 +38,7 @@
     <!-- Matches menu ID: myitems_drawer -->
     <fragment
         android:id="@+id/myitems_drawer"
-        android:name="com.shruti.lofo.ui.MyItems.MyItems"
+        android:name="com.shruti.lofo.ui.MyItems.MyItemsFragment"
         android:label="My Items"
         tools:layout="@layout/fragment_my_items" />
 

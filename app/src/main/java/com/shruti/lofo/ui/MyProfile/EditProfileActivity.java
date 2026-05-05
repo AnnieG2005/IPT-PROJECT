@@ -1,60 +1,97 @@
 package com.shruti.lofo.ui.MyProfile;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.firebase.firestore.FirebaseFirestore;
 import com.shruti.lofo.R;
+import com.shruti.lofo.api.ApiService;
+import com.shruti.lofo.api.RetrofitClient;
+import com.shruti.lofo.data.model.LoginResponse;
+import com.shruti.lofo.data.model.ProfileUpdateRequest;
+import com.shruti.lofo.databinding.ActivityEditProfileBinding;
+import com.shruti.lofo.utils.SessionManager;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class EditProfileActivity extends AppCompatActivity {
 
-    EditText editName, editPhone, editEmail;  // ← ADD THIS
-    Button saveBtn;
-    FirebaseFirestore db;
-    String documentId;
+
+    private ActivityEditProfileBinding binding;
+
+    private SessionManager sessionManager;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_edit_profile);
+        binding = ActivityEditProfileBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
-        editName = findViewById(R.id.editName);
-        editPhone = findViewById(R.id.editPhone);
-        editEmail = findViewById(R.id.editEmail);   // ← NOW IT WORKS
-        saveBtn = findViewById(R.id.saveBtn);
+        sessionManager = new SessionManager(this);
 
-        db = FirebaseFirestore.getInstance();
+        binding.editName.setText(sessionManager.getName());
+        binding.editPhone.setText(sessionManager.getPhone());
 
-        documentId = getIntent().getStringExtra("documentId");
 
-        db.collection("users").document(documentId).get()
-                .addOnSuccessListener(document -> {
-                    editName.setText(document.getString("name"));
-                    editEmail.setText(document.getString("email"));
-                    editPhone.setText(document.getString("phone"));
-                });
-
-        saveBtn.setOnClickListener(v -> saveChanges());
+        binding.saveBtn.setOnClickListener(v -> saveChanges());
+        binding.cancelBtn.setOnClickListener(v -> finish());
     }
+
+
 
     private void saveChanges() {
-        String newName = editName.getText().toString().trim();
-        String newPhone = editPhone.getText().toString().trim();
-        String newEmail = editEmail.getText().toString().trim();
+        String newName = binding.editName.getText().toString().trim();
+        String newPhone = binding.editPhone.getText().toString().trim();
 
-        db.collection("users").document(documentId)
-                .update("name", newName,
-                        "email", newEmail,
-                        "phone", newPhone)
-                .addOnSuccessListener(aVoid -> {
-                    Toast.makeText(this, "Profile updated!", Toast.LENGTH_SHORT).show();
+        if(newName.isEmpty() || newPhone.isEmpty()){
+            Toast.makeText(this, "Fields cannot be empty", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+
+        binding.saveBtn.setText("UPDATING...");
+        binding.saveBtn.setEnabled(false);
+
+
+        ProfileUpdateRequest request = new ProfileUpdateRequest(newName, newPhone);
+
+        ApiService apiService = RetrofitClient.getApiService(this);
+        Call<LoginResponse.User> call = apiService.updateProfile(request);
+
+        call.enqueue(new Callback<LoginResponse.User>() {
+
+            @Override
+            public void onResponse(Call<LoginResponse.User> call, retrofit2.Response<LoginResponse.User> response) {
+                if(response.isSuccessful() && response.body() != null) {
+                    LoginResponse.User updatedUser = response.body();
+                    sessionManager.updateProfileSession(newName, newPhone);
+                    Toast.makeText(EditProfileActivity.this, "Profile updated successfully", Toast.LENGTH_SHORT).show();
                     finish();
-                })
-                .addOnFailureListener(e ->
-                        Toast.makeText(this, "Error updating profile", Toast.LENGTH_SHORT).show());
+                } else {
+                    binding.saveBtn.setText("SAVE CHANGES");
+                    binding.saveBtn.setEnabled(true);
+                    Toast.makeText(EditProfileActivity.this, "Failed to update profile", Toast.LENGTH_SHORT).show();
+                    Log.e("EditProfileActivity", "Error updating profile: " + response.message());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<LoginResponse.User> call, Throwable t) {
+                binding.saveBtn.setText("SAVE CHANGES");
+                binding.saveBtn.setEnabled(true);
+                Toast.makeText(EditProfileActivity.this, "Failed to update profile", Toast.LENGTH_SHORT).show();
+                Log.e("EditProfileActivity", "Error updating profile: " + t.getMessage(), t);
+            }
+        });
     }
+
+
+
 }

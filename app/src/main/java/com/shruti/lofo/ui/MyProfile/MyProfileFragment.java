@@ -5,69 +5,51 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.shruti.lofo.R;
+import com.shruti.lofo.databinding.FragmentMyProfileBinding;
+import com.shruti.lofo.utils.SessionManager;
 
 public class MyProfileFragment extends Fragment {
-
-    TextView profileName, profileEmail, profilePhone, titleName;
-    Button editProfileButton;
-    FirebaseFirestore database;
-    String documentId; // store document id of user
+    private SessionManager sessionManager;
+    private FragmentMyProfileBinding binding;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_my_profile, container, false);
+        binding = FragmentMyProfileBinding.inflate(inflater, container, false);
+        View root = binding.getRoot();
 
-        profileName = root.findViewById(R.id.profileName);
-        profileEmail = root.findViewById(R.id.profileEmail);
-        profilePhone = root.findViewById(R.id.profilephone);
-        titleName = root.findViewById(R.id.titlename);
-        editProfileButton = root.findViewById(R.id.editProfileButton);
 
-        database = FirebaseFirestore.getInstance();
+        sessionManager = new SessionManager(requireContext());
 
-        fetchUserData();
+        binding.profileName.setText(sessionManager.getName());
+        binding.profileEmail.setText(sessionManager.getEmail());
+        binding.profilephone.setText(sessionManager.getPhone());
 
-        editProfileButton.setOnClickListener(v -> {
-            Intent intent = new Intent(getActivity(), EditProfileActivity.class);
-            intent.putExtra("documentId", documentId);
-            startActivity(intent);
+
+        binding.editProfileButton.setOnClickListener(v -> {
+            startActivity(new Intent(getActivity(), EditProfileActivity.class));
         });
 
         return root;
     }
 
-    private void fetchUserData() {
-        FirebaseAuth auth = FirebaseAuth.getInstance();
-        FirebaseUser currentUser = auth.getCurrentUser();
 
-        String userEmail = currentUser.getEmail();
-        database.collection("users")
-                .whereEqualTo("email", userEmail)
-                .get()
-                .addOnSuccessListener(queryDocumentSnapshots -> {
-                    for (DocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
 
-                        documentId = documentSnapshot.getId();
+    @Override
+    public void onResume() {
+        super.onResume();
+        binding.profileName.setText(sessionManager.getName());
+        binding.profileEmail.setText(sessionManager.getEmail());
+        binding.profilephone.setText(sessionManager.getPhone());
+    }
 
-                        String nameFromDB = documentSnapshot.getString("name");
-                        String emailFromDB = documentSnapshot.getString("email");
-                        String phoneFromDB = documentSnapshot.getString("phone");
 
-                        titleName.setText(nameFromDB);
-                        profileName.setText(nameFromDB);
-                        profileEmail.setText(emailFromDB);
-                        profilePhone.setText(phoneFromDB);
-                    }
-                });
+
+    @Override
+    public void onDestroyView(){
+        super.onDestroyView();
+        binding = null;
     }
 }
