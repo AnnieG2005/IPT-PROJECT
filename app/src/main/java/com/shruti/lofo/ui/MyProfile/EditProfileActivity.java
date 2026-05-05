@@ -1,32 +1,18 @@
 package com.shruti.lofo.ui.MyProfile;
 
 import android.os.Bundle;
-import android.util.Log;
-import android.widget.Button;
-import android.widget.EditText;
+import android.view.View;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 
-import com.shruti.lofo.R;
-import com.shruti.lofo.api.ApiService;
-import com.shruti.lofo.api.RetrofitClient;
-import com.shruti.lofo.data.model.LoginResponse;
-import com.shruti.lofo.data.model.ProfileUpdateRequest;
 import com.shruti.lofo.databinding.ActivityEditProfileBinding;
-import com.shruti.lofo.utils.SessionManager;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class EditProfileActivity extends AppCompatActivity {
 
-
     private ActivityEditProfileBinding binding;
-
-    private SessionManager sessionManager;
-
+    private EditProfileViewModel viewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,64 +20,76 @@ public class EditProfileActivity extends AppCompatActivity {
         binding = ActivityEditProfileBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        sessionManager = new SessionManager(this);
+        viewModel = new ViewModelProvider(this).get(EditProfileViewModel.class);
 
-        binding.editName.setText(sessionManager.getName());
-        binding.editPhone.setText(sessionManager.getPhone());
-
-
-        binding.saveBtn.setOnClickListener(v -> saveChanges());
-        binding.cancelBtn.setOnClickListener(v -> finish());
+        populateFields();
+        setupClickListeners();
+        setupObservers();
     }
 
 
+    private void populateFields() {
+        String name  = viewModel.getCurrentName();
+        String phone = viewModel.getCurrentPhone();
 
-    private void saveChanges() {
-        String newName = binding.editName.getText().toString().trim();
-        String newPhone = binding.editPhone.getText().toString().trim();
+        binding.editName.setText(name);
+        binding.editPhone.setText(phone);
 
-        if(newName.isEmpty() || newPhone.isEmpty()){
-            Toast.makeText(this, "Fields cannot be empty", Toast.LENGTH_SHORT).show();
-            return;
+        if (name != null && !name.isEmpty()) {
+            binding.avatarInitial.setText(String.valueOf(name.charAt(0)).toUpperCase());
+            binding.avatarName.setText(name);
         }
+    }
 
+    private void setupClickListeners() {
+        binding.backArrow.setOnClickListener(v -> finish());
+        binding.cancelBtn.setOnClickListener(v -> finish());
 
-        binding.saveBtn.setText("UPDATING...");
-        binding.saveBtn.setEnabled(false);
+        binding.saveBtn.setOnClickListener(v -> {
+            String newName = binding.editName.getText() != null
+                    ? binding.editName.getText().toString().trim() : "";
+            String newPhone = binding.editPhone.getText() != null
+                    ? binding.editPhone.getText().toString().trim() : "";
 
+            viewModel.updateProfile(newName, newPhone);
+        });
+    }
 
-        ProfileUpdateRequest request = new ProfileUpdateRequest(newName, newPhone);
+    private void setupObservers() {
+        viewModel.updateState.observe(this, state -> {
+            switch (state) {
+                case LOADING:
+                    setLoading(true);
+                    break;
 
-        ApiService apiService = RetrofitClient.getApiService(this);
-        Call<LoginResponse.User> call = apiService.updateProfile(request);
-
-        call.enqueue(new Callback<LoginResponse.User>() {
-
-            @Override
-            public void onResponse(Call<LoginResponse.User> call, retrofit2.Response<LoginResponse.User> response) {
-                if(response.isSuccessful() && response.body() != null) {
-                    LoginResponse.User updatedUser = response.body();
-                    sessionManager.updateProfileSession(newName, newPhone);
-                    Toast.makeText(EditProfileActivity.this, "Profile updated successfully", Toast.LENGTH_SHORT).show();
+                case SUCCESS:
+                    Toast.makeText(this,
+                            "Profile updated successfully!", Toast.LENGTH_SHORT).show();
                     finish();
-                } else {
-                    binding.saveBtn.setText("SAVE CHANGES");
-                    binding.saveBtn.setEnabled(true);
-                    Toast.makeText(EditProfileActivity.this, "Failed to update profile", Toast.LENGTH_SHORT).show();
-                    Log.e("EditProfileActivity", "Error updating profile: " + response.message());
-                }
-            }
+                    break;
 
-            @Override
-            public void onFailure(Call<LoginResponse.User> call, Throwable t) {
-                binding.saveBtn.setText("SAVE CHANGES");
-                binding.saveBtn.setEnabled(true);
-                Toast.makeText(EditProfileActivity.this, "Failed to update profile", Toast.LENGTH_SHORT).show();
-                Log.e("EditProfileActivity", "Error updating profile: " + t.getMessage(), t);
+                case ERROR:
+                    setLoading(false);
+                    break;
+
+                case IDLE:
+                default:
+                    break;
+            }
+        });
+
+        viewModel.errorMessage.observe(this, message -> {
+            if (message != null && !message.isEmpty()) {
+                Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
             }
         });
     }
 
 
-
+    private void setLoading(boolean isLoading) {
+        binding.loadingOverlay.setVisibility(isLoading ? View.VISIBLE : View.GONE);
+        binding.saveBtn.setEnabled(!isLoading);
+        binding.cancelBtn.setEnabled(!isLoading);
+        binding.backArrow.setEnabled(!isLoading);
+    }
 }

@@ -1,14 +1,19 @@
 package com.shruti.lofo.ui.Help;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import com.shruti.lofo.BuildConfig;
 import com.shruti.lofo.databinding.FragmentHelpBinding;
 
 public class HelpFragment extends Fragment {
@@ -48,6 +53,8 @@ public class HelpFragment extends Fragment {
             }
         });
 
+        binding.btnContactSupport.setOnClickListener(v -> contactSupport());
+
 
         return root;
     }
@@ -66,6 +73,24 @@ public class HelpFragment extends Fragment {
                 .rotation(isExpanded ? 0f : -90f)
                 .setDuration(200)
                 .start();
+    }
+
+
+    private void contactSupport() {
+        Intent emailIntent = new Intent(Intent.ACTION_SENDTO);
+
+
+        emailIntent.setData(Uri.parse("mailto:"));
+
+        emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{BuildConfig.SUPPORT_EMAIL});
+        emailIntent.putExtra(Intent.EXTRA_SUBJECT, "LOFO App Support Request");
+        emailIntent.putExtra(Intent.EXTRA_TEXT, "Hello LOFO Team,\n\nI need help with...");
+
+        try {
+            startActivity(Intent.createChooser(emailIntent, "Send email using..."));
+        } catch (android.content.ActivityNotFoundException ex) {
+            Toast.makeText(getContext(), "No email client installed.", Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override

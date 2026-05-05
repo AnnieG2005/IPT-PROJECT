@@ -8,7 +8,11 @@ android {
     compileSdk 35
 
     Properties properties = new Properties()
-    properties.load(project.rootProject.file('local.properties').newDataInputStream())
+
+    if (project.rootProject.file("local.properties").exists()) {
+        properties.load(project.rootProject.file("local.properties").newDataInputStream())
+    }
+
 
     defaultConfig {
         applicationId "com.shruti.lofo"
@@ -17,7 +21,10 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        buildConfigField "String", "BASE_URL", properties.getProperty('API_BASE_URL')    }
+        buildConfigField "String", "BASE_URL", properties.getProperty('API_BASE_URL')
+        buildConfigField "String", "SUPPORT_EMAIL", properties.getProperty("SUPPORT_EMAIL", "\"support@lofo.com\"")
+
+    }
 
     buildTypes {
         release {
